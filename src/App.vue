@@ -1,45 +1,21 @@
 <template>
-  <form @submit.prevent="addTask">
-    <input type="text" maxlength="100" v-model="taskTitle" placeholder="What is there to do?" />
-    <button type="submit">Add Task</button>
-  </form>
+  <AddNewTodo :tasks="tasks" />
   <li v-for="(storedTask, index) in tasks">
-    <TaskItem :title="storedTask.title" :done="storedTask.done" :id="storedTask.id" />
+    <TodoItem :title="storedTask.title" :done="storedTask.done" :id="storedTask.id" />
     <button @click="removeTask(index)">X</button>
   </li>
 </template>
 
 <script setup lang="ts">
-import { v4 as uuidv4 } from 'uuid'
-import { onMounted, ref } from 'vue'
-import TaskItem from './TaskItem.vue'
-
-interface task {
-  title: string,
-  done: boolean,
-  id: string
-}
+import { ref, onMounted } from 'vue'
+import TodoItem from './TodoItem.vue'
+import AddNewTodo from './AddNewTodo.vue'
+import type { task } from './task.ts'
 
 const tasks = ref<task[]>([])
-const taskTitle = ref<string>('')
-
-const addTask = () => {
-  const newTask = {
-    title: taskTitle.value,
-    done: false,
-    id: uuidv4()
-  }
-  tasks.value.push(newTask)
-  taskTitle.value = ''
-  save()
-}
 
 const removeTask = (index: number) => {
   tasks.value.splice(index, 1)
-  save()
-}
-
-const save = () => {
   let stringified = JSON.stringify(tasks.value)
   localStorage.setItem('tasks', stringified)
   console.log('---> saved: ', localStorage.getItem('tasks'))
@@ -59,8 +35,6 @@ onMounted(async () => {
   }
 
 })
-
-
 </script>
 
 
