@@ -17,13 +17,14 @@ const props = defineProps({
 const taskTitle = ref<string>('')
 
 const addTask = () => {
+    if (!taskTitle.value.length) return
+
     const newTask = {
         title: taskTitle.value,
         done: false,
         id: uuidv4()
     }
     props.tasks?.push(newTask)
-    //tasks.value.push(newTask)
     taskTitle.value = ''
     let stringified = JSON.stringify(props.tasks)
     localStorage.setItem('tasks', stringified)
