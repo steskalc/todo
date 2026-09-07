@@ -1,7 +1,10 @@
 <template>
-  <q-card>
-    {{ props.title }}
-    <input type="checkbox" v-model="isDone" />
+  <q-card class="task-card flat bordered">
+    <q-card-section>
+      <input type="checkbox" v-model="isDone" class="task-checkbox" />
+      {{ props.title }}
+    </q-card-section>
+
   </q-card>
 </template>
 
@@ -12,7 +15,7 @@ import { computed } from 'vue';
 const props = defineProps({
   title: String,
   done: Boolean,
-  id: String,
+  taskId: String,
 })
 
 const emit = defineEmits(['update-task-status'])
@@ -22,9 +25,25 @@ const isDone = computed({
     return props.done
   },
   set(newValue) {
-    emit('update-task-status', { done: newValue, taskId: props.id })
+    emit('update-task-status', { done: newValue, taskId: props.taskId })
   }
 })
 
 </script>
-<style scoped></style>
+<style scoped>
+.task-checkbox {
+  border-radius: 50%;
+}
+
+.task-card {
+  width: 50%;
+  height: 50px;
+  border-radius: 12px;
+  margin-left: 50px;
+  margin-top: 10px;
+  background-color: white;
+  color: black;
+  justify-content: center;
+  box-shadow: none;
+}
+</style>
