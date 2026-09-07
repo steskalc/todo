@@ -12,10 +12,10 @@
 
 
 <script setup lang="ts">
-import type { task } from './task';
 import { computed } from 'vue';
+import type { Task } from './task';
 const props = defineProps<{
-  todoItem: task
+  todoItem: Task
 }>()
 
 const emit = defineEmits(['update-task-status'])

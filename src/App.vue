@@ -23,20 +23,20 @@
 import { ref, watch, computed } from 'vue'
 import TodoItem from './TodoItem.vue'
 import AddNewTodo from './AddNewTodo.vue'
-import type { task } from './task.ts'
+import type { Task } from './task.ts'
 import { useQuasar } from 'quasar'
 
 const $q = useQuasar()
 
 const stored = localStorage.getItem('tasks')
-const tasks = ref<task[]>(stored ? JSON.parse(stored) : [])
+const tasks = ref<Task[]>(stored ? JSON.parse(stored) : [])
 const completed = computed(() => tasks.value.filter((t) => t.done === true).length)
 const active = computed(() => tasks.value.filter((t) => t.done === false).length)
 
 const updateTaskStatus = (payload: { done: boolean, taskId: string }) => {
   let taskN = tasks.value.findIndex((storedTask) => storedTask.taskId === payload.taskId)
   if (taskN !== undefined) {
-    const updated: task = {
+    const updated: Task = {
       title: tasks.value![taskN]!.title,
       done: payload.done,
       taskId: tasks.value![taskN]!.taskId
@@ -46,7 +46,7 @@ const updateTaskStatus = (payload: { done: boolean, taskId: string }) => {
   }
 }
 
-const addNewTask = (newTask: task) => {
+const addNewTask = (newTask: Task) => {
 
   const match = tasks.value.find((t) => t.title == newTask.title)
 

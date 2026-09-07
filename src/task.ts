@@ -1,5 +1,5 @@
 
-export interface task {
+export interface Task {
   title: string,
   done: boolean,
   taskId: string
