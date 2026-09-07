@@ -14,6 +14,7 @@ import { ref } from 'vue'
 
 const emits = defineEmits(['add-new-task'])
 const taskTitle = ref<string>('')
+
 const addTask = () => {
     if (!taskTitle.value.length) return
 

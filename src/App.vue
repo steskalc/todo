@@ -4,18 +4,17 @@
 
     <div class="todo-items row">
       <div class="column">
-        <label class="task-count">ACTIVE - {{ active }}</label>
+        <label class="column-header">ACTIVE - {{ active }}</label>
         <div v-for="activeTask in tasks.filter((t) => t.done === false)" :key="activeTask.taskId">
           <TodoItem :todo-item="activeTask" @update-task-status="updateTaskStatus" />
         </div>
       </div>
       <div class="column">
-        <label class="task-count">COMPLETED - {{ completed }}</label>
+        <label class="column-header">COMPLETED - {{ completed }}</label>
         <div v-for="doneTask in tasks.filter((t) => t.done === true)" :key="doneTask.taskId">
           <TodoItem :todo-item="doneTask" @update-task-status="updateTaskStatus" />
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -86,7 +85,7 @@ watch(
   gap: 40px;
 }
 
-.task-count {
+.column-header {
   align-self: stretch;
   margin-bottom: 10px;
   color: #697587;
