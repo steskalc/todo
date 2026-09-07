@@ -27,6 +27,9 @@ import { ref, watch, computed } from 'vue'
 import TodoItem from './TodoItem.vue'
 import AddNewTodo from './AddNewTodo.vue'
 import type { task } from './task.ts'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
 
 const stored = localStorage.getItem('tasks')
 const tasks = ref<task[]>(stored ? JSON.parse(stored) : [])
@@ -47,6 +50,14 @@ const updateTaskStatus = (payload: { done: boolean, taskId: string }) => {
 }
 
 const addNewTask = (payload: task) => {
+
+  const match = tasks.value.find((t) => t.title == payload.title)
+
+  if (match) {
+    $q.notify({ message: 'Task already exists.', color: 'negative' })
+    return
+  }
+
   tasks.value.push(payload)
 }
 

@@ -1,8 +1,10 @@
 <template>
   <q-card flat bordered class="task-card flat bordered">
     <q-card-section>
-      <input type="checkbox" v-model="isDone" class="task-checkbox" />
-      {{ props.title }}
+      <input class="task-checkbox" type="checkbox" v-model="isDone" />
+      <span :class="{ completed: isDone }">
+        {{ props.title }}
+      </span>
     </q-card-section>
 
   </q-card>
@@ -36,23 +38,38 @@ const isDone = computed({
   appearance: none;
   width: 20px;
   height: 20px;
-  border: solid;
-  border-width: 1px;
-  border-color: #bac3cf;
-  accent-color: #71cda7;
+  border: solid 1px #bac3cf;
   border-radius: 50%;
-  outline: none;
   cursor: pointer;
   vertical-align: middle;
+  margin-right: 10px;
+}
+
+.task-checkbox:checked {
+  border-color: #71cda7;
+}
+
+.task-checkbox:checked::after {
+  content: "🗸";
+  font-size: 14px;
+  color: #71cda7;
+  font-weight: bold;
+  left: 50%;
+  top: 50%;
+  margin-left: 3px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #bac3cf;
 }
 
 .task-card {
   width: 350px;
-  height: 50px;
+  min-height: 50px;
   border-radius: 12px;
   margin-top: 10px;
   color: black;
-  justify-content: center;
   box-shadow: none;
 }
 </style>

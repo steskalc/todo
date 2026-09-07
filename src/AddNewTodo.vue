@@ -1,8 +1,10 @@
 <template>
     <form @submit.prevent="addTask" class="new-task-form row">
         <q-input class="task-input" outlined type="text" maxlength="100" v-model="taskTitle"
-            placeholder="What is there to do?" />
-        <button type="submit" class="submit-task text-h6">+ Add</button>
+            placeholder="What needs to be done?" />
+        <button type="submit" class="submit-task text-subtitle1">
+            + Add
+        </button>
     </form>
 </template>
 
@@ -47,6 +49,10 @@ const addTask = () => {
     border: none;
     background-color: #92aff4;
     color: white;
+}
+
+.submit-task:hover {
+    background-color: #7d9eec;
 }
 
 .new-task-form {
