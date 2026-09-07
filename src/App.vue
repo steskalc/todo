@@ -1,21 +1,24 @@
 <template>
-  <AddNewTodo :tasks="tasks" @add-new-task="addNewTask" />
-  <div class="todo-items row">
-    <div class="column">
-      <label class="task-count">ACTIVE - {{ active }}</label>
-      <div v-for="storedTask in tasks.filter((t) => t.done === false)" :key="storedTask.taskId">
-        <TodoItem :title="storedTask.title" :done="storedTask.done" :taskId="storedTask.taskId"
-          @update-task-status="updateTaskStatus" />
-      </div>
-    </div>
-    <div class="column">
-      <label class="task-count">COMPLETED - {{ completed }}</label>
-      <div v-for="storedTask in tasks.filter((t) => t.done === true)" :key="storedTask.taskId">
-        <TodoItem :title="storedTask.title" :done="storedTask.done" :taskId="storedTask.taskId"
-          @update-task-status="updateTaskStatus" />
-      </div>
-    </div>
+  <div class="todo-container">
+    <AddNewTodo :tasks="tasks" @add-new-task="addNewTask" />
 
+    <div class="todo-items row">
+      <div class="column">
+        <label class="task-count">ACTIVE - {{ active }}</label>
+        <div v-for="storedTask in tasks.filter((t) => t.done === false)" :key="storedTask.taskId">
+          <TodoItem :title="storedTask.title" :done="storedTask.done" :taskId="storedTask.taskId"
+            @update-task-status="updateTaskStatus" />
+        </div>
+      </div>
+      <div class="column">
+        <label class="task-count">COMPLETED - {{ completed }}</label>
+        <div v-for="storedTask in tasks.filter((t) => t.done === true)" :key="storedTask.taskId">
+          <TodoItem :title="storedTask.title" :done="storedTask.done" :taskId="storedTask.taskId"
+            @update-task-status="updateTaskStatus" />
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -33,7 +36,6 @@ const active = computed(() => tasks.value.filter((t) => t.done === false).length
 const updateTaskStatus = (payload: { done: boolean, taskId: string }) => {
   let taskN = tasks.value.findIndex((storedTask) => storedTask.taskId === payload.taskId)
   if (taskN !== undefined) {
-    console.log('---> id in updater: ', tasks.value![taskN]!.taskId)
     const updated: task = {
       title: tasks.value![taskN]!.title,
       done: payload.done,
@@ -60,19 +62,33 @@ watch(
 
 
 <style>
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .todo-items {
-  justify-content: center;
+  width: 740px;
   margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  gap: 40px;
 }
 
 .task-count {
-  align-self: left;
+  align-self: stretch;
   margin-bottom: 10px;
   color: #697587;
+  text-align: left;
 }
 
 .column {
-  width: 50%;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 body {

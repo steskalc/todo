@@ -2,7 +2,7 @@
     <form @submit.prevent="addTask" class="new-task-form row">
         <q-input class="task-input" outlined type="text" maxlength="100" v-model="taskTitle"
             placeholder="What is there to do?" />
-        <button type="submit" class="submit-task">+ Add</button>
+        <button type="submit" class="submit-task text-h6">+ Add</button>
     </form>
 </template>
 
@@ -28,24 +28,31 @@ const addTask = () => {
 </script>
 <style scoped>
 .task-input {
-    width: 60%;
+    width: 700px;
+    flex: 1;
+    background-color: white;
+}
+
+:deep(.task-input .q-field__control),
+:deep(.task-input .q-field__marginal) {
+    height: 50px;
+    border-radius: 12px;
 }
 
 .submit-task {
     margin-left: 10px;
     border-radius: 12px;
-    width: 100px;
+    width: 80px;
+    height: 50px;
     border: none;
     background-color: #92aff4;
     color: white;
-    font-weight: bold;
-}
-
-.submit-task:hover {
-    background-color: #5b8bfc;
 }
 
 .new-task-form {
+    display: flex;
+    width: 740px;
+    align-items: center;
     justify-content: center;
     padding-top: 30px;
 }
