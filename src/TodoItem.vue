@@ -3,7 +3,7 @@
     <q-card-section>
       <input class="task-checkbox" type="checkbox" v-model="isDone" />
       <span :class="{ completed: isDone }">
-        {{ props.title }}
+        {{ props.todoItem.title }}
       </span>
     </q-card-section>
 
@@ -12,22 +12,20 @@
 
 
 <script setup lang="ts">
-
+import type { task } from './task';
 import { computed } from 'vue';
-const props = defineProps({
-  title: String,
-  done: Boolean,
-  taskId: String,
-})
+const props = defineProps<{
+  todoItem: task
+}>()
 
 const emit = defineEmits(['update-task-status'])
 
 const isDone = computed({
   get() {
-    return props.done
+    return props.todoItem.done
   },
   set(newValue) {
-    emit('update-task-status', { done: newValue, taskId: props.taskId })
+    emit('update-task-status', { done: newValue, taskId: props.todoItem.taskId })
   }
 })
 

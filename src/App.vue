@@ -1,20 +1,18 @@
 <template>
   <div class="todo-container">
-    <AddNewTodo :tasks="tasks" @add-new-task="addNewTask" />
+    <AddNewTodo @add-new-task="addNewTask" />
 
     <div class="todo-items row">
       <div class="column">
         <label class="task-count">ACTIVE - {{ active }}</label>
-        <div v-for="storedTask in tasks.filter((t) => t.done === false)" :key="storedTask.taskId">
-          <TodoItem :title="storedTask.title" :done="storedTask.done" :taskId="storedTask.taskId"
-            @update-task-status="updateTaskStatus" />
+        <div v-for="activeTask in tasks.filter((t) => t.done === false)" :key="activeTask.taskId">
+          <TodoItem :todo-item="activeTask" @update-task-status="updateTaskStatus" />
         </div>
       </div>
       <div class="column">
         <label class="task-count">COMPLETED - {{ completed }}</label>
-        <div v-for="storedTask in tasks.filter((t) => t.done === true)" :key="storedTask.taskId">
-          <TodoItem :title="storedTask.title" :done="storedTask.done" :taskId="storedTask.taskId"
-            @update-task-status="updateTaskStatus" />
+        <div v-for="doneTask in tasks.filter((t) => t.done === true)" :key="doneTask.taskId">
+          <TodoItem :todo-item="doneTask" @update-task-status="updateTaskStatus" />
         </div>
       </div>
 
@@ -49,16 +47,16 @@ const updateTaskStatus = (payload: { done: boolean, taskId: string }) => {
   }
 }
 
-const addNewTask = (payload: task) => {
+const addNewTask = (newTask: task) => {
 
-  const match = tasks.value.find((t) => t.title == payload.title)
+  const match = tasks.value.find((t) => t.title == newTask.title)
 
   if (match) {
     $q.notify({ message: 'Task already exists.', color: 'negative' })
     return
   }
 
-  tasks.value.push(payload)
+  tasks.value.push(newTask)
 }
 
 watch(
