@@ -1,7 +1,7 @@
 # todo
 
 Prerequisites:
-- Node 24
+- Node v24.20.0
 - npm
 
 To run locally:
