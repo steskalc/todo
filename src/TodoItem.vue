@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered class="task-card flat bordered">
+  <q-card flat bordered class="task-card">
     <q-card-section>
       <input class="task-checkbox" type="checkbox" v-model="isDone" />
       <span :class="{ completed: isDone }">
